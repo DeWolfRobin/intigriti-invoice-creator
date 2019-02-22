@@ -1,8 +1,9 @@
 <?php
 
-if (isset($_GET["name"]) && isset($_GET["amount"]) && isset($_GET["factnr"])) {
+if (isset($_GET["name"]) && isset($_GET["amount"]) && isset($_GET["factnr"]) && isset($_GET["date"])) {
   $code = explode(",",$_GET["name"]);
   $amount = explode(",",$_GET["amount"]);
+  $date = explode(",",$_GET["date"]);
   $factnr = $_GET["factnr"];
   $subtotal = array_sum($amount);
 } else {
@@ -14,7 +15,7 @@ $fdate = $today["mday"]."/".$today["mon"]."/".$today["year"];
 $xdate = ($today["mday"]+2)."/".($today["mon"]+1)."/".$today["year"];
 
 $logo = "logo.jpg";
-$you = ["USER","Address1","Address2","BTW BE 0000.000.000","BE12 1234 1234 1234","BIC: ZZZZZZZZ","0412345678","user@domain.com","https://haywirehax.com"];
+$you = ["Robin De Wolf","Heuvel 14","9260 Schellebelle","BTW BE 0720.955.963","BE46 3751 1308 8036","BIC: BBRUBEBB","0488221025","rdewolf@telenet.be","https://haywirehax.com"];
 $client = ["NV Intigriti","Parklaan 113/8","9300 Aalst","BTW BE 0660.623.646"];
 $extra = ["U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag binnen de vooropgestelde betalingstermijn."];
 ?>
@@ -28,6 +29,7 @@ $extra = ["U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag bin
     <link rel="stylesheet" href="factuur.css">
   </head>
   <body>
+    <div id="print">
     <div class="row">
       <div class="col-md-12 centertext">
         <h1>Factuur</h1>
@@ -71,7 +73,7 @@ $extra = ["U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag bin
       <div class="overview">
         <table class="center table">
           <tr>
-            <th>Aantal</th>
+            <th>Datum</th>
             <th>Omschrijving</th>
             <th>Bedrag</th>
             <th>Totaal</th>
@@ -82,7 +84,7 @@ $extra = ["U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag bin
             foreach ($code as $item) {
               ?>
               <tr>
-                <td>1x</td>
+                <td><?php echo $date[$i] ?></td>
                 <td>[ <?php echo "$item"; ?> ]</td>
                 <td>€ <?php echo $amount[$i] ?></td>
                 <td>€ <?php echo $amount[$i] ?></td>
@@ -128,8 +130,14 @@ $extra = ["U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag bin
         </div>
       </div>
     </div>
+  </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      $(function() {
+        window.print();
+      });
+    </script>
   </body>
 </html>
